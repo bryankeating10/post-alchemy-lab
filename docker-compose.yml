@@ -13,4 +13,25 @@ services:
     volumes:
       - ./postgress-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U labuser"]
+      test: ["CMD-SHELL", "pg_isready -U labuser sandbox"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: ./app
+    container_name: lab
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./app:workspace
+    working_dir: /workspace
+    command: tail -f /dev/null
+    environment:
+      DATABASE_URL: postgresql://labuser:labpass@db:5432/sandbox
+    stdin_open: true
+    tty: true
+
+volumes:
+  postgres-data:
