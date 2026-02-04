@@ -9,7 +9,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./postgress-data:/var/lib/postgresql/data
+      - postgress-data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U labuser sandbox"]
       interval: 5s
@@ -23,7 +23,7 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - ./app:workspace
+      - ./app:/workspace
     working_dir: /workspace
     command: tail -f /dev/null
     environment:
