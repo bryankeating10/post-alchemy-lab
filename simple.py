@@ -32,3 +32,18 @@ Base.metadata.create_all(engine)
 # Create a session to interact with the database
 Session = sessionmaker(bind=engine)
 session = Session()
+
+# Add a new user
+new_user = User(name='Colette')
+session.add(new_user)
+session.commit()
+
+# Query the data
+users = session.query(User).all()
+for user in users:
+    print(f'User {user.id}: {user.name}')
+
+# Close the session
+session.close()
+
+print('Done! Check the "users" table in your database.')
