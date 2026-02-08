@@ -4,7 +4,10 @@ psycopg2-binary==2.9.9
 
 # Pandas and NumPy
 pandas==2.0.3
-numpy==2.0.3
+# numpy==2.0.3
 
 # Kaggle API
 kaggle==1.5.13
+
+# DateTime handling
+datetime==5.0.0

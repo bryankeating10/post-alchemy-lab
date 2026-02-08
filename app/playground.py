@@ -5,6 +5,7 @@ Investigates SQLAlchemy and PostgreSQL interactions:
 
 from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.orm import declarative_base, sessionmaker
+from datetime import datetime
 
 # Connection string for PostgreSQL
 DATABASE_URL = 'postgresql://labuser:labpass@db:5432/sandbox'
@@ -33,3 +34,31 @@ class RUMS(Base):
     away_goals = Column(Integer)
     home_shots = Column(Integer)
     away_shots = Column(Integer)
+
+# Create the table in the database
+Base.metadata.create_all(engine)
+
+# Create a session
+Session = sessionmaker(bind=engine)
+session = Session()
+
+# Add game data
+game1 = RUMS(
+    datetime=datetime(2023, 9, 12, 19, 0),
+    location="Piscataway, NJ",
+    home_team="Rutgers",
+    away_team="Penn State",
+    home_goals=2,
+    away_goals=1,
+    home_shots=14,
+    away_shots=9
+)
+
+# Add the game to the session and commit
+session.add(game1)
+session.commit()
+
+# Query the database to check if the game was added
+games = session.query(RUMS).all()
+for game in games:
+    print(f"{game.datetime} - {game.home_team} vs {game.away_team}: {game.home_goals}-{game.away_goals}")
