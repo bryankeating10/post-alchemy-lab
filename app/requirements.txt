@@ -1,2 +1,10 @@
+# SQLAlchemy and Psycopg2
 sqlalchemy==2.0.25
 psycopg2-binary==2.9.9
+
+# Pandas and NumPy
+pandas==2.0.3
+numpy==2.0.3
+
+# Kaggle API
+kaggle==1.5.13
