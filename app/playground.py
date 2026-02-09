@@ -73,10 +73,10 @@ for game in games:
 for game in games:
     print(f'\nGame ID: {game.id}')
     print(f'After the game in {game.location},'
-          f'on {game.datetime.strftime("%B %d, %Y at %I:%M %p")}'
-          f'{game.home_team} and {game.away_team}'
-          f'took {game.home_shots} and {game.away_shots} shots respectively'
-          f'with a final score of {game.home_goals} to {game.away_goals}.'
+          f'on {game.datetime.strftime("%B %d, %Y at %I:%M %p ")}'
+          f'{game.home_team} and {game.away_team} '
+          f'took {game.home_shots} and {game.away_shots} shots respectively '
+          f'with a final score of {game.home_goals}-{game.away_goals}.'
     )
     
 # Close the session
