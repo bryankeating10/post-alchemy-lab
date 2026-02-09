@@ -26,5 +26,14 @@ print('Downloaded sales data')
 df = pd.read_csv('/app/data/Walmart_Sales.csv')
 print(df.head())
 
+# Briefly inspect data
+print(df.columns)
+print()
+
+for col in df.columns:
+    print(df[col].describe())
+
 # Open a session
 session = Session()
+
+#
