@@ -33,3 +33,23 @@ class RUMS(Base):
     away_goals = Column(Integer)
     home_shots = Column(Integer)
     away_shots = Column(Integer)
+
+# Define the WalmartSales table
+class WalmartSales(Base):
+    __tablename__ = "walmart_sales"
+
+    id = Column(Integer, primary_key=True)
+
+    store = Column(String)
+    datetime = Column(DateTime)
+    weekly_sales = Column(Integer)
+    holiday_flag = Column(Integer)
+    temperature = Column(Integer)
+    fuel_price = Column(Integer)
+    cpi = Column(Integer)
+    unemployment = Column(Integer)
+    
+# Create all tables in database
+Base.metadata.create_all(engine)
+
+# Define
