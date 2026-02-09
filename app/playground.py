@@ -44,6 +44,7 @@ session = Session()
 
 # Add game data
 game1 = RUMS(
+    id = 1,
     datetime=datetime(2023, 9, 12, 19, 0),
     location="Piscataway, NJ",
     home_team="Rutgers",
@@ -71,10 +72,12 @@ for game in games:
 # Better formatting
 for game in games:
     print(f'Game ID: {game.id}')
-    print(f'After the game in {game.location}, \
-          on {game.datetime.strftime("%B %d, %Y at %I:%M %p")}, \
-          {game.home_team} and {game.away_team} took {game.home_shots} and {game.away_shots} shots respectively, \
-          with a final score of {game.home_goals} to {game.away_goals}.')
+    print(f'After the game in {game.location},'
+          f'on {game.datetime.strftime("%B %d, %Y at %I:%M %p")}'
+          f'{game.home_team} and {game.away_team}'
+          f'took {game.home_shots} and {game.away_shots} shots respectively'
+          f'with a final score of {game.home_goals} to {game.away_goals}.'
+    )
     
 # Close the session
 session.close()
