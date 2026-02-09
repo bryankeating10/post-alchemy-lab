@@ -34,6 +34,16 @@ df.to_sql(
 
 # Verify insertion
 with engine.connect() as conn:
-    result = conn.execute(text("SELECT * FROM walmart_sales;"))
+    result = conn.execute(text("SELECT * FROM walmart_sales " \
+    "LIMIT 10;"))
     for row in result:
         print(row)
+
+# Average weekly sales
+with engine.connect() as conn:
+    result = conn.execute(text("""
+        SELECT AVG("Weekly_Sales") AS avg_sales
+        FROM walmart_sales
+    """))
+    avg_sales = result.scalar()
+    print("Average Weekly Sales:", avg_sales)
