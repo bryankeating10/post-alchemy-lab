@@ -41,9 +41,12 @@ class WalmartSales(Base):
 
     id = Column(Integer, primary_key=True)
 
+    # Internal factors
     store = Column(String)
     datetime = Column(DateTime)
     weekly_sales = Column(Integer)
+
+    # External factors
     holiday_flag = Column(Integer)
     temperature = Column(Integer)
     fuel_price = Column(Integer)
