@@ -54,6 +54,9 @@ game1 = RUMS(
     away_shots=9
 )
 
+# Clear existing dat in RUMS table
+session.query(RUMS).delete()
+
 # Add the game to the session and commit
 session.add(game1)
 session.commit()
@@ -61,4 +64,17 @@ session.commit()
 # Query the database to check if the game was added
 games = session.query(RUMS).all()
 for game in games:
+    print(f'Game ID: {game.id}')
     print(f"{game.datetime} - {game.home_team} vs {game.away_team}: {game.home_goals}-{game.away_goals}")
+    print(f'Shots: {game.home_shots} (home) vs {game.away_shots} (away)')
+
+# Better formatting
+for game in games:
+    print(f'Game ID: {game.id}')
+    print(f'After the game in {game.location}, \
+          on {game.datetime.strftime("%B %d, %Y at %I:%M %p")}, \
+          {game.home_team} and {game.away_team} took {game.home_shots} and {game.away_shots} shots respectively, \
+          with a final score of {game.home_goals} to {game.away_goals}.')
+    
+# Close the session
+session.close()
