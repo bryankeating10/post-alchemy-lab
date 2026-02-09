@@ -2,8 +2,9 @@
 Define the schema for all tables in the database
 """
 
-from sqlalchemy import create_engine, Column, Integer, String, DateTime
+from sqlalchemy import create_engine, inspect, Column, Integer, String, DateTime
 from sqlalchemy.orm import declarative_base, sessionmaker
+
 
 # Connection string for PostgreSQL
 DATABASE_URL = 'postgresql://labuser:labpass@db:5432/sandbox'
@@ -48,8 +49,17 @@ class WalmartSales(Base):
     fuel_price = Column(Integer)
     cpi = Column(Integer)
     unemployment = Column(Integer)
-    
+
+# Create a session
+Session = sessionmaker(bind=engine)
+session = Session()
+
 # Create all tables in database
 Base.metadata.create_all(engine)
 
-# Define
+# Verify tables created
+inspector = inspect(engine)
+print(inspector.get_table_names())
+
+# Close the session
+session.close()
