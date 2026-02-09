@@ -3,7 +3,7 @@ Practice using KaggleAPI to download datasets and pandas
 to insert data into a PostgreSQL database.
 """
 
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, text
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 import pandas as pd
@@ -34,6 +34,6 @@ df.to_sql(
 
 # Verify insertion
 with engine.connect() as conn:
-    result = conn.execute("SELECT * FROM walmart_sales;")
+    result = conn.execute(text("SELECT * FROM walmart_sales;"))
     for row in result:
         print(row)
