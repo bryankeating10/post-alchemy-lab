@@ -71,7 +71,7 @@ for game in games:
 
 # Better formatting
 for game in games:
-    print(f'Game ID: {game.id}')
+    print(f'\nGame ID: {game.id}')
     print(f'After the game in {game.location},'
           f'on {game.datetime.strftime("%B %d, %Y at %I:%M %p")}'
           f'{game.home_team} and {game.away_team}'
