@@ -42,16 +42,16 @@ class WalmartSales(Base):
     id = Column(Integer, primary_key=True)
 
     # Internal factors
-    store = Column(String)
-    date = Column(DateTime)
-    weekly_sales = Column(Integer)
+    Store = Column(String)
+    Date = Column(DateTime)
+    Weekly_Sales = Column(Integer)
 
     # External factors
-    holiday_flag = Column(Integer)
-    temperature = Column(Integer)
-    fuel_price = Column(Integer)
-    cpi = Column(Integer)
-    unemployment = Column(Integer)
+    Holiday_Flag = Column(Integer)
+    Temperature = Column(Integer)
+    Fuel_Price = Column(Integer)
+    CPI = Column(Integer)
+    Unemployment = Column(Integer)
 
 # Create a session
 Session = sessionmaker(bind=engine)
