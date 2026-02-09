@@ -26,6 +26,8 @@ services:
       - ./app:/workspace
     working_dir: /workspace
     command: tail -f /dev/null
+    env_file:
+      - .env
     environment:
       DATABASE_URL: postgresql://labuser:labpass@db:5432/sandbox
     stdin_open: true
