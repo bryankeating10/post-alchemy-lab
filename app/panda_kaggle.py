@@ -3,37 +3,37 @@ Practice using KaggleAPI to download datasets and pandas
 to insert data into a PostgreSQL database.
 """
 
-from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 import pandas as pd
 from kaggle.api.kaggle_api_extended import KaggleApi
 
-from table_creation import Session, WalmartSales
+from table_creation import Session, WalmartSales, engine
 
 # Download dataset using Kaggle API
 api = KaggleApi()
 api.authenticate()
-print('Authenticated API')
 
 api.dataset_download_files(
     'mikhail1681/walmart-sales',
     path='/app/data',
     unzip=True
 )
-print('Downloaded sales data')
 
 df = pd.read_csv('/app/data/Walmart_Sales.csv')
 print(df.head())
 
-# Briefly inspect data
-print(df.columns)
-print()
+# Insert DataFrame into PostgreSQL
+df.to_sql(
+    'walmart_sales',
+    engine,
+    if_exists='replace',
+    index=False
+)
 
-for col in df.columns:
-    print(df[col].describe())
-
-# Open a session
-session = Session()
-
-#
+# Verify insertion
+with engine.connect() as conn:
+    result = conn.execute("SELECT * FROM walmart_sales;")
+    for row in result:
+        print(row)
