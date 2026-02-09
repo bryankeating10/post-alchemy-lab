@@ -22,7 +22,7 @@ class RUMS(Base):
     id = Column(Integer, primary_key=True)
 
     # Match details
-    datetime = Column(DateTime)
+    date = Column(DateTime)
     location = Column(String)
     
     # Competitors
@@ -43,7 +43,7 @@ class WalmartSales(Base):
 
     # Internal factors
     store = Column(String)
-    datetime = Column(DateTime)
+    date = Column(DateTime)
     weekly_sales = Column(Integer)
 
     # External factors
