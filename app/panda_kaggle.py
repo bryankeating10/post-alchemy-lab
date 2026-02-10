@@ -22,7 +22,7 @@ api.dataset_download_files(
 )
 
 df = pd.read_csv('/app/data/Walmart_Sales.csv')
-print(df.head())
+# print(df.head())
 
 # Insert DataFrame into PostgreSQL
 df.to_sql(
@@ -32,12 +32,14 @@ df.to_sql(
     index=False
 )
 
+"""
 # Verify insertion
 with engine.connect() as conn:
     result = conn.execute(text("SELECT * FROM walmart_sales " \
     "LIMIT 10;"))
     for row in result:
         print(row)
+"""
 
 # Average weekly sales
 with engine.connect() as conn:
@@ -47,3 +49,12 @@ with engine.connect() as conn:
     """))
     avg_sales = result.scalar()
     print("Average Weekly Sales:", avg_sales)
+
+# Average unemployment
+with engine.connect() as conn:
+    result = conn.execute(text("""
+        SELECT AVG("Unemployment") AS avg_unemp
+        FROM walmart_sales
+    """))
+    avg_unemp = result.scalar()
+    print("Average Unemployment: ", avg_unemp)
