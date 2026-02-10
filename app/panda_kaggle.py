@@ -57,4 +57,23 @@ with engine.connect() as conn:
         FROM walmart_sales
     """))
     avg_unemp = result.scalar()
-    print("Average Unemployment: ", avg_unemp)
+    print("Average Unemployment:", avg_unemp)
+
+# Average weekly sales relative to unemployment
+with engine.connect() as conn:
+    result = conn.execute(text(f"""
+        SELECT AVG("Weekly_Sales") as unemp_avg_sales
+        FROM walmart_sales
+        WHERE "Unemployment" < {avg_unemp}
+    """))
+    below_unemp_avg_sales = result.scalar()
+    print("Average weekly sales during below average unemployment:", below_unemp_avg_sales)
+
+with engine.connect() as conn:
+    result = conn.execute(text(f"""
+        SELECT AVG("Weekly_Sales") as unemp_avg_sales
+        FROM walmart_sales
+        WHERE "Unemployment" > {avg_unemp}
+    """))
+    above_unemp_avg_sales = result.scalar()
+    print("Average weekly sales during above average unemployment:", above_unemp_avg_sales)
