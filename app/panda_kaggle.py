@@ -48,7 +48,7 @@ with engine.connect() as conn:
         FROM walmart_sales
     """))
     avg_sales = result.scalar()
-    print("Average Weekly Sales:", avg_sales)
+print(f"Average Weekly Sales: ${avg_sales:.2f}")
 
 # Average unemployment
 with engine.connect() as conn:
@@ -57,7 +57,7 @@ with engine.connect() as conn:
         FROM walmart_sales
     """))
     avg_unemp = result.scalar()
-    print("Average Unemployment:", avg_unemp)
+print(f"Average Unemployment: {avg_unemp:.2f}%")
 
 # Average weekly sales relative to unemployment
 with engine.connect() as conn:
@@ -67,7 +67,8 @@ with engine.connect() as conn:
         WHERE "Unemployment" < {avg_unemp}
     """))
     below_unemp_avg_sales = result.scalar()
-    print("Average weekly sales during below average unemployment:", below_unemp_avg_sales)
+print("\nAverage weekly sales during below average unemployment:", below_unemp_avg_sales)
+print(f"This is {below_unemp_avg_sales/avg_sales*100:.2f}% of the total average")
 
 with engine.connect() as conn:
     result = conn.execute(text(f"""
@@ -76,4 +77,5 @@ with engine.connect() as conn:
         WHERE "Unemployment" > {avg_unemp}
     """))
     above_unemp_avg_sales = result.scalar()
-    print("Average weekly sales during above average unemployment:", above_unemp_avg_sales)
+print("\nAverage weekly sales during above average unemployment:", above_unemp_avg_sales)
+print(f"This is {above_unemp_avg_sales/avg_sales*100:.2f}% of the total average")
